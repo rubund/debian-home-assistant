@@ -1,0 +1,43 @@
+Source: home-assistant
+Section: python
+Priority: optional
+Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Uploaders: Ruben Undheim <ruben.undheim@gmail.com>
+Build-Depends: debhelper (>= 9)
+# aiohttp_cors, astral.py, netdisco should also be dependencies
+Standards-Version: 3.9.8
+Homepage: https://github.com/balloob/pychromecast
+Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/pychromecast.git
+Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/pychromecast.git
+
+Package: home-assistant
+Architecture: all
+Depends: ${misc:Depends},
+               python3-all,
+               python3-setuptools,
+               python3-yaml,
+               python3-jinja2,
+               python3-distro,
+               python3-xmltodict,
+               python3-voluptuous,
+               python3-aiohttp,
+               python3-sqlalchemy,
+               python3-aiohttp-jinja2,
+               python3-fuzzywuzzy,
+               python3-tz,
+               python3-netifaces,
+               python3-zeroconf
+Description: Home automation written in Python
+ This library makes it easy to communicate with a Chromecast device using
+ Python.
+ .
+ It currently supports:
+ .
+  - Auto discovering connected Chromecasts on the network
+  - Start the default media receiver and play any online media
+  - Control playback of current playing media
+  - Implement Google Chromecast API v2
+  - Communicate with apps via channels
+  - Easily extendable to add support for unsupported namespaces
+
+
