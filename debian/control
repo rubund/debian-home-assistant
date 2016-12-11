@@ -25,7 +25,11 @@ Depends: ${misc:Depends},
                python3-fuzzywuzzy,
                python3-tz,
                python3-netifaces,
-               python3-zeroconf
+               python3-zeroconf,
+               python3-requests,
+               python3-netdisco,
+               python3-aiohttp-cors,
+               python3-astral
 Description: Home automation written in Python
  This library makes it easy to communicate with a Chromecast device using
  Python.
@@ -40,3 +44,28 @@ Description: Home automation written in Python
   - Easily extendable to add support for unsupported namespaces
 
 
+Package: python3-netdisco
+Architecture: all
+Depends: ${misc:Depends},
+               python3,
+               python3-zeroconf,
+               python3-netifaces,
+               python3-requests
+Description: Discover network connected devices on local network
+ Detect network connected devices such as Philips Hue, Sonos, Chromecast..
+ .
+ This is the Python3 version of the library
+
+Package: python3-aiohttp-cors
+Architecture: all
+Depends: ${misc:Depends},
+               python3
+Description: http server helper
+ This is an http server helper.
+
+Package: python3-astral
+Architecture: all
+Depends: ${misc:Depends},
+               python3
+Description: Calculate astronomical things
+ If you want to know when the sun rises etc, this library may be useful.
