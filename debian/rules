@@ -13,6 +13,9 @@ override_dh_auto_install:
 	mkdir -p debian/tmp/usr/lib/python3/dist-packages/
 	cp -r homeassistant debian/tmp/usr/lib/python3/dist-packages/
 	cp -r convenience/* debian/tmp/usr/lib/python3/dist-packages/
+	mkdir -p debian/tmp/usr/bin
+	cp run_hass.py debian/tmp/usr/bin
+	cp hass debian/tmp/usr/bin
 
 override_dh_clean:
 	dh_clean
