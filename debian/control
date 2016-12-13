@@ -32,7 +32,10 @@ Depends: ${misc:Depends},
                python3-astral,
                python3-phue,
                python3-netatmo,
-               python3-enocean
+               python3-enocean,
+               python3-paho-mqtt,
+               python3-soco,
+               python3-pychromecast
 Description: Home automation written in Python
  This library makes it easy to communicate with a Chromecast device using
  Python.
