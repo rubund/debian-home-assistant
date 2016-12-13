@@ -69,3 +69,10 @@ Depends: ${misc:Depends},
                python3
 Description: Calculate astronomical things
  If you want to know when the sun rises etc, this library may be useful.
+
+Package: python3-phue
+Architecture: all
+Depends: ${misc:Depends},
+               python3
+Description: Control Philips hue
+ Philips Hue are LED bulbs which can show any color
