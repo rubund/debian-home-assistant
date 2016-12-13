@@ -29,7 +29,10 @@ Depends: ${misc:Depends},
                python3-requests,
                python3-netdisco,
                python3-aiohttp-cors,
-               python3-astral
+               python3-astral,
+               python3-phue,
+               python3-netatmo,
+               python3-enocean
 Description: Home automation written in Python
  This library makes it easy to communicate with a Chromecast device using
  Python.
@@ -87,6 +90,8 @@ Description: Get data from netatmo
 Package: python3-enocean
 Architecture: all
 Depends: ${misc:Depends},
-               python3
+               python3,
+               python3-serial,
+               python3-bs4
 Description: Control EnOcean device from Python
  EnOcean is a standard for home automation.
