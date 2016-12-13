@@ -1,0 +1,4 @@
+Other packages needed from source:
+  paho-mqtt
+  pychromecast (3)
+  python-soco
