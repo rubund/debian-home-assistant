@@ -76,3 +76,10 @@ Depends: ${misc:Depends},
                python3
 Description: Control Philips hue
  Philips Hue are LED bulbs which can show any color
+
+Package: python3-netatmo
+Architecture: all
+Depends: ${misc:Depends},
+               python3
+Description: Get data from netatmo
+ Get data from the netatmo device
