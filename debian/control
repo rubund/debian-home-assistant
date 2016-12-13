@@ -83,3 +83,10 @@ Depends: ${misc:Depends},
                python3
 Description: Get data from netatmo
  Get data from the netatmo device
+
+Package: python3-enocean
+Architecture: all
+Depends: ${misc:Depends},
+               python3
+Description: Control EnOcean device from Python
+ EnOcean is a standard for home automation.
