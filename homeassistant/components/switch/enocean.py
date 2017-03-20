@@ -16,13 +16,15 @@ import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
+CONF_SENDER_ID = 'sender_id'
+
 DEFAULT_NAME = 'EnOcean Switch'
 DEPENDENCIES = ['enocean']
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ID): vol.All(cv.ensure_list, [vol.Coerce(int)]),
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    vol.Required(CONF_SENDER_ID): vol.All(cv.ensure_list, [vol.Coerce(int)]),
+    vol.Optional(CONF_SENDER_ID, default=[]): vol.All(cv.ensure_list, [vol.Coerce(int)]),
     vol.Optional("subtype", default=""): cv.string,
 })
 
@@ -76,11 +78,11 @@ class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
         elif self.subtype == "fsr61":
             optional = []
             data = [0xf6, 0x50]
-            data.extend(self._sender_id))
+            data.extend(self._sender_id)
             data.extend([0x30])
             self.send_command(data=data, optional=optional, packet_type=0x01)
             data = [0xf6, 0x00]
-            data.extend(self._sender_id))
+            data.extend(self._sender_id)
             data.extend([0x20])
             self.send_command(data=data, optional=optional, packet_type=0x01)
         self._on_state = True
@@ -97,11 +99,11 @@ class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
         elif self.subtype == "fsr61":
             optional = []
             data = [0xf6, 0x70]
-            data.extend(self._sender_id))
+            data.extend(self._sender_id)
             data.extend([0x30])
             self.send_command(data=data, optional=optional, packet_type=0x01)
             data = [0xf6, 0x00]
-            data.extend(self._sender_id))
+            data.extend(self._sender_id)
             data.extend([0x20])
             self.send_command(data=data, optional=optional, packet_type=0x01)
         self._on_state = False
