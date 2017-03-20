@@ -22,6 +22,7 @@ DEPENDENCIES = ['enocean']
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ID): vol.All(cv.ensure_list, [vol.Coerce(int)]),
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
+    vol.Required(CONF_SENDER_ID): vol.All(cv.ensure_list, [vol.Coerce(int)]),
     vol.Optional("subtype", default=""): cv.string,
 })
 
@@ -29,19 +30,21 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Setup the EnOcean switch platform."""
     dev_id = config.get(CONF_ID)
+    sender_id = config.get(CONF_SENDER_ID)
     devname = config.get(CONF_NAME)
     subtype = config.get("subtype")
 
-    add_devices([EnOceanSwitch(dev_id, devname, subtype)])
+    add_devices([EnOceanSwitch(dev_id, sender_id, devname, subtype)])
 
 
 class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
     """Representation of an EnOcean switch device."""
 
-    def __init__(self, dev_id, devname, subtype):
+    def __init__(self, dev_id, sender_id, devname, subtype):
         """Initialize the EnOcean switch device."""
         enocean.EnOceanDevice.__init__(self)
         self.dev_id = dev_id
+        self._sender_id = sender_id
         self._devname = devname
         self._light = None
         self._on_state = False
@@ -72,12 +75,14 @@ class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
         # EnOcean EnO_switch_FSR61VA sent PacketType: 1 RORG: F6 DATA: 50 SenderID: FFC6EA03 STATUS: 30 ODATA:
         elif self.subtype == "fsr61":
             optional = []
-            self.send_command(data=[0xf6, 0x50,
-                                    0xff, 0xc6, 0xea, 0x13, 0x30], optional=optional,
-                              packet_type=0x01)
-            self.send_command(data=[0xf6, 0x00,
-                                    0xff, 0xc6, 0xea, 0x13, 0x20], optional=optional,
-                              packet_type=0x01)
+            data = [0xf6, 0x50]
+            data.extend(self._sender_id))
+            data.extend([0x30])
+            self.send_command(data=data, optional=optional, packet_type=0x01)
+            data = [0xf6, 0x00]
+            data.extend(self._sender_id))
+            data.extend([0x20])
+            self.send_command(data=data, optional=optional, packet_type=0x01)
         self._on_state = True
 
     def turn_off(self, **kwargs):
@@ -91,12 +96,14 @@ class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
                               packet_type=0x01)
         elif self.subtype == "fsr61":
             optional = []
-            self.send_command(data=[0xf6, 0x70,
-                                    0xff, 0xc6, 0xea, 0x13, 0x30], optional=optional,
-                              packet_type=0x01)
-            self.send_command(data=[0xf6, 0x00,
-                                    0xff, 0xc6, 0xea, 0x13, 0x20], optional=optional,
-                              packet_type=0x01)
+            data = [0xf6, 0x70]
+            data.extend(self._sender_id))
+            data.extend([0x30])
+            self.send_command(data=data, optional=optional, packet_type=0x01)
+            data = [0xf6, 0x00]
+            data.extend(self._sender_id))
+            data.extend([0x20])
+            self.send_command(data=data, optional=optional, packet_type=0x01)
         self._on_state = False
 
     def value_changed(self, val):
