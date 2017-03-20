@@ -75,7 +75,7 @@ class EnOceanDongle:
         if isinstance(temp, RadioPacket):
             rxtype = None
             value = None
-            if temp.data[6] == 0x30:
+            if temp.data[6] == 0x30 and temp.data[2] == 0xfe:
                 rxtype = "wallswitch"
                 value = 1
             elif temp.data[6] == 0x20:
@@ -93,6 +93,13 @@ class EnOceanDongle:
             elif temp.data[0] == 0xa5 and temp.data[1] == 0x02:
                 rxtype = "dimmerstatus"
                 value = temp.data[2]
+            elif temp.data[0] == 0xf6 and temp.data[2] == 0x01: # Check for this: 0xf6 0x50/0x70 0x01 0xa1 0xa9 0x17 0x30
+                rxtype = "switch_status"
+                if temp.data[1] == 0x50:
+                    value = 0
+                elif temp.data[1] == 0x70:
+                    value = 1
+
             for device in self.__devices:
                 if rxtype == "wallswitch" and device.stype == "listener":
                     if temp.sender == self._combine_hex(device.dev_id):
