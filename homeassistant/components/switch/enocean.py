@@ -85,7 +85,7 @@ class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
             data.extend(self._sender_id)
             data.extend([0x20])
             self.send_command(data=data, optional=optional, packet_type=0x01)
-        self._on_state = True
+        #self._on_state = True # Make configurable from yaml config
 
     def turn_off(self, **kwargs):
         """Turn off the switch."""
@@ -106,7 +106,7 @@ class EnOceanSwitch(enocean.EnOceanDevice, ToggleEntity):
             data.extend(self._sender_id)
             data.extend([0x20])
             self.send_command(data=data, optional=optional, packet_type=0x01)
-        self._on_state = False
+        #self._on_state = False # Make configurable from yaml config
 
     def value_changed(self, val):
         """Update the internal state of the switch."""
